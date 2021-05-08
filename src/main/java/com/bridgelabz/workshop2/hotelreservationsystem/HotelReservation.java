@@ -6,9 +6,10 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.time.temporal.TemporalAccessor;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HotelReservation {
 	private static Map<String, Hotel> hotelMap;
@@ -106,7 +107,6 @@ public class HotelReservation {
 
 	public static Map<Integer, ArrayList<Hotel>> createRateMap(String customerType, String fromDate, String toDate) {
 		HashMap<Integer, ArrayList<Hotel>> rateMap = new HashMap<>();
-		int days[] = numberOfDays(fromDate, toDate);
 		int totalRent = 0;
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
 			if (customerType.equalsIgnoreCase("Regular")) {
@@ -168,6 +168,15 @@ public class HotelReservation {
 
 	}
 
-	public static void main(String[] args) {
+	public void validateInputs(String customerType, String fromDate, String toDate) throws Exception {
+		String regex = "^[0-9]{2}[ ][A-Za-z]{3}[ ][0-9]{4}$";
+		Pattern pattern = Pattern.compile(regex);
+		Matcher matcherFrom = pattern.matcher(fromDate);
+		Matcher matcherTo = pattern.matcher(toDate);
+		if (!matcherFrom.find() || !matcherTo.find() || !customerType.equalsIgnoreCase("Regular")
+				|| !customerType.equalsIgnoreCase("Reward")) {
+			throw new Exception("Invalid input, Please enter a Valid Input");
+		}
+		return;
 	}
 }
