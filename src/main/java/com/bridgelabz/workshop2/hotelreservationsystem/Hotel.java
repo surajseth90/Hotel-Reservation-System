@@ -1,15 +1,14 @@
 package com.bridgelabz.workshop2.hotelreservationsystem;
 
-import java.util.Map;
 
 public class Hotel {
 
 	private String hotelName;
-	private Map<CustomerType, Rate> rate;
+	private int regularCustomerWeekendRate;
 
-	public Hotel(String hotelName, Map<CustomerType, Rate> rate) {
+	public Hotel(String hotelName, int regularCustomerWeekendRate) {
 		this.hotelName = hotelName;
-		this.rate = rate;
+		this.regularCustomerWeekendRate = regularCustomerWeekendRate;
 	}
 
 	public String getHotelName() {
@@ -20,12 +19,12 @@ public class Hotel {
 		this.hotelName = hotelName;
 	}
 
-	public Map<CustomerType, Rate> getRate() {
-		return rate;
+	public int getRegularCustomerWeekendRate() {
+		return regularCustomerWeekendRate;
 	}
 
-	public void setRate(Map<CustomerType, Rate> rate) {
-		this.rate = rate;
+	public void setRegularCustomerWeekendRate(int regularCustomerWeekendRate) {
+		this.regularCustomerWeekendRate = regularCustomerWeekendRate;
 	}
 
 }

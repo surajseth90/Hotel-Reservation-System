@@ -1,50 +1,28 @@
 package com.bridgelabz.workshop2.hotelreservationsystemtest;
 
-import java.util.HashMap;
-
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
-import com.bridgelabz.workshop2.hotelreservationsystem.CustomerType;
-import com.bridgelabz.workshop2.hotelreservationsystem.Hotel;
 import com.bridgelabz.workshop2.hotelreservationsystem.HotelReservation;
-import com.bridgelabz.workshop2.hotelreservationsystem.Rate;
 
 public class HotelReservationTest {
 
-	private Hotel lakewood;
-	private Hotel bridgewood;
-	private Hotel ridgewood;
-	HotelReservation hotelReservation = new HotelReservation();
+	@Test
+	public void whenNewHotelAdded_shouldReturnTrue() {
 
-	@Before
-	public void setHotel() {
-
-		HashMap<CustomerType, Rate> customerTypeRate = new HashMap<>();
-
-		customerTypeRate.put(CustomerType.regular, new Rate(110, 90));
-		customerTypeRate.put(CustomerType.rewarded, new Rate(80, 80));
-		lakewood = new Hotel("Lakewood", customerTypeRate);
-
-		customerTypeRate.put(CustomerType.regular, new Rate(160, 40));
-		customerTypeRate.put(CustomerType.rewarded, new Rate(110, 50));
-		bridgewood = new Hotel("Bridgewood", customerTypeRate);
-
-		customerTypeRate.put(CustomerType.regular, new Rate(220, 150));
-		customerTypeRate.put(CustomerType.rewarded, new Rate(100, 40));
-		ridgewood = new Hotel("Ridgewood", customerTypeRate);
-
-		hotelReservation.addHotel(lakewood);
-		hotelReservation.addHotel(bridgewood);
-		hotelReservation.addHotel(ridgewood);
+		HotelReservation hotelReservationObject = new HotelReservation();
+		Assert.assertTrue(hotelReservationObject.addHotel("Lakewood", 110));
+		Assert.assertTrue(hotelReservationObject.addHotel("Bridgewood", 160));
+		Assert.assertTrue(hotelReservationObject.addHotel("Ridgewood", 220));
 
 	}
 
 	@Test
-	public void givenHotel_WhenAdded_ShouldReturnTrue() {
-		Assert.assertTrue(hotelReservation.addHotel(lakewood));
-		Assert.assertTrue(hotelReservation.addHotel(bridgewood));
-		Assert.assertTrue(hotelReservation.addHotel(ridgewood));
+	public void whenFindCheapestHotelMethodCalled_shouldReturn_nameOfHotel() {
+		HotelReservation hotelReservation = new HotelReservation();
+		Assert.assertTrue(hotelReservation.addHotel("Lakewood", 110));
+		Assert.assertTrue(hotelReservation.addHotel("Bridgewood", 160));
+		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220));
+		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("10Sep2020", "11Sep2020"));
 	}
 }
