@@ -22,6 +22,12 @@ public class HotelReservation {
 		return true;
 	}
 
+	public boolean addHotel(String name, int regularCustomerWeekDaysRate, int regularCustomerWeekEndRate) {
+		Hotel hotel = new Hotel(name, regularCustomerWeekDaysRate, regularCustomerWeekEndRate);
+		hotelMap.put(name, hotel);
+		return true;
+	}
+
 	public String findCheapestHotel(String fromDate, String toDate) {
 		Map<Integer, ArrayList<Hotel>> rateMap = createRateMap(fromDate, toDate);
 		int minimumRate = Integer.MAX_VALUE;
@@ -39,7 +45,7 @@ public class HotelReservation {
 		HashMap<Integer, ArrayList<Hotel>> rateMap = new HashMap<>();
 		int numOfDays = numberOfDays(fromDate, toDate);
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
-			int rent = entry.getValue().getRegularCustomerWeekendRate() * numOfDays;
+			int rent = entry.getValue().getRegularCustomerWeekEndRate() * numOfDays;
 			rateMap.computeIfAbsent(rent, k -> new ArrayList<>()).add(entry.getValue());
 		}
 		return rateMap;
@@ -68,6 +74,14 @@ public class HotelReservation {
 		default:
 			return false;
 
+		}
+	}
+	public void printHotels() {
+		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
+			System.out.println("Hotel Name : " + entry.getKey());
+			System.out.println("Rate on Weekdays for Regular Customers : " + entry.getValue().getRegularCustomerWeekDaysRate());
+			System.out.println("Rate on Weekends for Regular Customers : " + entry.getValue().getRegularCustomerWeekEndRate());
+			System.out.println();
 		}
 	}
 }
