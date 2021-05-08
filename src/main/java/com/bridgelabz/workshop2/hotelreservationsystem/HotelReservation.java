@@ -44,8 +44,8 @@ public class HotelReservation {
 		return true;
 	}
 
-	public boolean findCheapestHotel(String fromDate, String toDate) {
-		Map<Integer, ArrayList<Hotel>> rateMap = createRateMap(fromDate, toDate);
+	public boolean findCheapestHotel(String customerType, String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rateMap = createRateMap(customerType, fromDate, toDate);
 		int minimumRate = Integer.MAX_VALUE;
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rateMap.entrySet()) {
 			if (entry.getKey() < minimumRate)
@@ -59,8 +59,8 @@ public class HotelReservation {
 		return true;
 	}
 
-	public boolean cheapestBestRatedHotel(String fromDate, String toDate) {
-		Map<Integer, ArrayList<Hotel>> rentMap = createRateMap(fromDate, toDate);
+	public boolean cheapestBestRatedHotel(String customerType, String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rentMap = createRateMap(customerType, fromDate, toDate);
 		int minimumRent = Integer.MAX_VALUE;
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
 			if (entry.getKey() < minimumRent)
@@ -104,15 +104,19 @@ public class HotelReservation {
 		return totalRent;
 	}
 
-	public static Map<Integer, ArrayList<Hotel>> createRateMap(String fromDate, String toDate) {
+	public static Map<Integer, ArrayList<Hotel>> createRateMap(String customerType, String fromDate, String toDate) {
 		HashMap<Integer, ArrayList<Hotel>> rateMap = new HashMap<>();
 		int days[] = numberOfDays(fromDate, toDate);
-
+		int totalRent = 0;
 		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
-			int weekDaysRate = entry.getValue().getRegularCustomerWeekDaysRate() * days[0];
-			int weekEndDaysRate = entry.getValue().getRegularCustomerWeekEndRate() * days[1];
-			int finalRate = weekDaysRate + weekEndDaysRate;
-			rateMap.computeIfAbsent(finalRate, k -> new ArrayList<>()).add(entry.getValue());
+			if (customerType.equalsIgnoreCase("Regular")) {
+				totalRent = calculateRent(fromDate, toDate, entry.getValue().getRegularCustomerWeekDaysRate(),
+						entry.getValue().getRegularCustomerWeekEndRate());
+			} else if (customerType.equalsIgnoreCase("Reward")) {
+				totalRent = calculateRent(fromDate, toDate, entry.getValue().getRewardedCustomerWeekDaysRate(),
+						entry.getValue().getRewardedCustomerWeekendRate());
+			}
+			rateMap.computeIfAbsent(totalRent, key -> new ArrayList<>()).add(entry.getValue());
 		}
 		return rateMap;
 	}

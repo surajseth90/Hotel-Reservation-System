@@ -23,7 +23,7 @@ public class HotelReservationTest {
 		Assert.assertTrue(hotelReservation.addHotel("Lakewood", 110));
 		Assert.assertTrue(hotelReservation.addHotel("Bridgewood", 160));
 		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220));
-		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("10Sep2020", "11Sep2020"));
+		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("Regular", "10Sep2020", "11Sep2020"));
 		hotelReservation.printHotels();
 	}
 
@@ -44,7 +44,7 @@ public class HotelReservationTest {
 		Assert.assertTrue(hotelReservation.addHotel("Lakewood", 110, 90));
 		Assert.assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60));
 		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
-		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("10Sep2020", "11Sep2020"));
+		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("Regular", "10Sep2020", "11Sep2020"));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class HotelReservationTest {
 		hotelReservation.addHotel("Lakewood", 110, 90, 3);
 		hotelReservation.addHotel("Bridgewood", 150, 50, 4);
 		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
-		Assert.assertTrue(hotelReservation.cheapestBestRatedHotel("11Sep2020", "12Sep2020"));
+		Assert.assertTrue(hotelReservation.cheapestBestRatedHotel("Regular", "11Sep2020", "12Sep2020"));
 	}
 
 	@Test
@@ -84,5 +84,14 @@ public class HotelReservationTest {
 		hotelReservationObject.addHotel("Bridgewood", 150, 50, 4, 110, 50);
 		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5, 100, 40);
 		hotelReservationObject.printHotels();
+	}
+
+	@Test
+	public void whenCheapestBestRatedCalledForRewardCustomers_shouldReturn_bestRatedHotel() {
+		HotelReservation hotelReservationObject = new HotelReservation();
+		hotelReservationObject.addHotel("Lakewood", 110, 90, 3);
+		hotelReservationObject.addHotel("Bridgewood", 150, 50, 4);
+		hotelReservationObject.addHotel("Ridgewood", 220, 150, 5);
+		Assert.assertTrue(hotelReservationObject.cheapestBestRatedHotel("Reward", "11Sep2020", "12Sep2020"));
 	}
 }
