@@ -5,6 +5,11 @@ public class Hotel {
 	private String hotelName;
 	private int regularCustomerWeekendRate;
 	private int regularCustomerWeekDaysRate;
+	private int ratingOfHotel;
+
+	public int getRatingOfHotel() {
+		return ratingOfHotel;
+	}
 
 	public Hotel(String hotelName, int regularCustomerWeekendRate) {
 		this.hotelName = hotelName;
@@ -16,6 +21,14 @@ public class Hotel {
 		this.hotelName = hotelName;
 		this.regularCustomerWeekendRate = regularCustomerWeekEndRate;
 		this.regularCustomerWeekDaysRate = regularCustomerWeekDaysRate;
+	}
+
+	public Hotel(String hotelName, int regularCustomerWeekendRate, int regularCustomerWeekDaysRate, int ratingOfHotel) {
+		super();
+		this.hotelName = hotelName;
+		this.regularCustomerWeekendRate = regularCustomerWeekendRate;
+		this.regularCustomerWeekDaysRate = regularCustomerWeekDaysRate;
+		this.ratingOfHotel = ratingOfHotel;
 	}
 
 	public String getHotelName() {
@@ -40,6 +53,10 @@ public class Hotel {
 
 	public void setRegularCustomerWeekDaysRate(int regularCustomerWeekDaysRate) {
 		this.regularCustomerWeekDaysRate = regularCustomerWeekDaysRate;
+	}
+
+	public void setRatingOfHotel(int ratingOfHotel) {
+		this.ratingOfHotel = ratingOfHotel;
 	}
 
 }

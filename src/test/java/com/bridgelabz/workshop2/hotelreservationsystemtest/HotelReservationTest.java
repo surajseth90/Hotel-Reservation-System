@@ -46,4 +46,16 @@ public class HotelReservationTest {
 		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
 		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("10Sep2020", "11Sep2020"));
 	}
+	
+	@Test
+	public void whenNewHotelAddedWithRating_shouldReturnTrue() {
+
+		HotelReservation hotelReservation = new HotelReservation();
+		Assert.assertTrue(hotelReservation.addHotel("Lakewood", 110, 90, 3));
+		Assert.assertTrue(hotelReservation.addHotel("Bridgewood", 160, 60, 4));
+		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150, 5));
+
+		hotelReservation.printHotels();
+		
+	}
 }
