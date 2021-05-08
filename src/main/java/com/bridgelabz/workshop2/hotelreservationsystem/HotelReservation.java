@@ -72,6 +72,30 @@ public class HotelReservation {
 		return true;
 	}
 
+	public boolean findBestRatedHotelForGivenDates(String fromDate, String toDate) {
+		int rating = 0;
+		int rate = 0;
+		String bestRatedHotel = "";
+		for (Map.Entry<String, Hotel> entry : hotelMap.entrySet()) {
+			if (entry.getValue().getRatingOfHotel() > rating) {
+				rating = entry.getValue().getRatingOfHotel();
+				bestRatedHotel = entry.getKey();
+				rate = calculateRent(fromDate, toDate, entry.getValue().getRegularCustomerWeekDaysRate(),
+						entry.getValue().getRegularCustomerWeekEndRate());
+			}
+		}
+		System.out.println("Best Rated Hotel : " + bestRatedHotel + ", Rent : " + rate);
+		return true;
+	}
+
+	public static int calculateRent(String fromDate, String toDate, int weekDayRate, int weekEndRate) {
+		int[] numOfDays = numberOfDays(fromDate, toDate);
+		int weekDayRent = weekDayRate * numOfDays[0];
+		int weekEndRent = weekEndRate * numOfDays[1];
+		int totalRent = weekDayRent + weekEndRent;
+		return totalRent;
+	}
+	
 	public static Map<Integer, ArrayList<Hotel>> createRateMap(String fromDate, String toDate) {
 		HashMap<Integer, ArrayList<Hotel>> rateMap = new HashMap<>();
 		int days[] = numberOfDays(fromDate, toDate);
