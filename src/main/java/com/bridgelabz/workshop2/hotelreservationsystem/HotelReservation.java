@@ -36,17 +36,40 @@ public class HotelReservation {
 		return true;
 	}
 
-	public String findCheapestHotel(String fromDate, String toDate) {
+	public boolean findCheapestHotel(String fromDate, String toDate) {
 		Map<Integer, ArrayList<Hotel>> rateMap = createRateMap(fromDate, toDate);
 		int minimumRate = Integer.MAX_VALUE;
 		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rateMap.entrySet()) {
 			if (entry.getKey() < minimumRate)
 				minimumRate = entry.getKey();
 		}
+		System.out.println("Cheapest Hotel for you is: ");
+		for (Hotel hotel : rateMap.get(minimumRate)) {
+			System.out.print(hotel.getHotelName() + "  ");
+		}
+		System.out.println("\nTotal Rent : " + minimumRate);
+		return true;
+	}
 
-		System.out.println(rateMap.get(minimumRate).get(0).getHotelName());
-		System.out.println("Total Rate : " + minimumRate);
-		return rateMap.get(minimumRate).get(0).getHotelName();
+	public boolean cheapestBestRatedHotel(String fromDate, String toDate) {
+		Map<Integer, ArrayList<Hotel>> rentMap = createRateMap(fromDate, toDate);
+		int minimumRent = Integer.MAX_VALUE;
+		for (Map.Entry<Integer, ArrayList<Hotel>> entry : rentMap.entrySet()) {
+			if (entry.getKey() < minimumRent)
+				minimumRent = entry.getKey();
+		}
+		ArrayList<Hotel> cheapestHotels = rentMap.get(minimumRent);
+		String bestRatedCheapestHotel = "";
+		int rating = 0;
+		for (Hotel hotel : cheapestHotels) {
+			if (hotel.getRatingOfHotel() > rating) {
+				bestRatedCheapestHotel = hotel.getHotelName();
+				rating = hotel.getRatingOfHotel();
+			}
+		}
+		System.out.println("Cheapest Hotel is " + bestRatedCheapestHotel + " with Rating " + rating + " Total Rent : "
+				+ minimumRent + "\n");
+		return true;
 	}
 
 	public static Map<Integer, ArrayList<Hotel>> createRateMap(String fromDate, String toDate) {
@@ -98,9 +121,10 @@ public class HotelReservation {
 					"Rate on Weekdays for Regular Customers : " + entry.getValue().getRegularCustomerWeekDaysRate());
 			System.out.println(
 					"Rate on Weekends for Regular Customers : " + entry.getValue().getRegularCustomerWeekEndRate());
-			System.out.println(
-					"Rating of Hotel : " + entry.getValue().getRatingOfHotel());
+			System.out.println("Rating of Hotel : " + entry.getValue().getRatingOfHotel());
+			System.out.println();
 		}
+
 	}
 
 	public static void main(String[] args) {

@@ -46,7 +46,7 @@ public class HotelReservationTest {
 		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150));
 		Assert.assertEquals("Lakewood", hotelReservation.findCheapestHotel("10Sep2020", "11Sep2020"));
 	}
-	
+
 	@Test
 	public void whenNewHotelAddedWithRating_shouldReturnTrue() {
 
@@ -56,6 +56,15 @@ public class HotelReservationTest {
 		Assert.assertTrue(hotelReservation.addHotel("Ridgewood", 220, 150, 5));
 
 		hotelReservation.printHotels();
-		
+
+	}
+
+	@Test
+	public void whenCheapestBestRatedCalled_shouldReturn_bestRatedHotel() {
+		HotelReservation hotelReservation = new HotelReservation();
+		hotelReservation.addHotel("Lakewood", 110, 90, 3);
+		hotelReservation.addHotel("Bridgewood", 150, 50, 4);
+		hotelReservation.addHotel("Ridgewood", 220, 150, 5);
+		Assert.assertTrue(hotelReservation.cheapestBestRatedHotel("11Sep2020", "12Sep2020"));
 	}
 }
